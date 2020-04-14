@@ -1,6 +1,34 @@
 import React from 'react';
 import axios from 'axios';
 import GitCard from './GitCard'
+import styled from 'styled-components';
+import './App.css';
+
+const MainTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+  margin-top: 5%;
+  font-size: 2rem;
+`
+
+const FollowersTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+`
+
+const CardMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+  margin-left: 25%;
+  border: solid;
+  margin-top: 3%;
+`
 
 class App extends React.Component{
   constructor(){
@@ -36,8 +64,8 @@ class App extends React.Component{
 
   render(){
     return(
-      <div className = 'mainContainer'>
-        <h1>Github Usercards</h1>
+      <CardMain className = 'mainContainer'>
+        <MainTitle>Github Usercards</MainTitle>
         <GitCard 
           userImg = {this.state.user.avatar_url}
           name = {this.state.user.name}
@@ -47,7 +75,7 @@ class App extends React.Component{
           following = {this.state.user.following}
           bio = {this.state.user.bio}
           />
-          <h2>My Followers</h2>
+          <FollowersTitle>My Followers</FollowersTitle>
         {
         this.state.followers.map(user=>{
           return <GitCard 
@@ -61,7 +89,7 @@ class App extends React.Component{
           />
         })
         }
-      </div>
+      </CardMain>
     )
   }
 }
