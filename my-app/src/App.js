@@ -7,10 +7,12 @@ import './App.css';
 const MainTitle = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 60%;
   align-items: center;
   margin-top: 5%;
-  font-size: 2rem;
+  margin-bottom: 3%;
+  font-size: 2.5rem;
+  padding-bottom: 2%;
 `
 
 const FollowersTitle = styled.div`
@@ -18,6 +20,11 @@ const FollowersTitle = styled.div`
   flex-direction: column;
   width: 50%;
   align-items: center;
+  padding-bottom: 2%;
+  font-size: 2rem;
+  margin-top: 8%;
+  margin-bottom: 1%;
+
 `
 
 const CardMain = styled.div`
@@ -26,8 +33,11 @@ const CardMain = styled.div`
   width: 50%;
   align-items: center;
   margin-left: 25%;
-  border: solid;
+  border: solid grey;
+  border-radius: 10px;
   margin-top: 3%;
+  margin-bottom: 3%;
+  background-color: lightgrey;
 `
 
 class App extends React.Component{
@@ -38,7 +48,6 @@ class App extends React.Component{
     followers: []
     };
   }
-
   componentDidMount() {
     axios
       .get("https://api.github.com/users/joshaw66")
@@ -49,7 +58,6 @@ class App extends React.Component{
        })
    })
       .catch(err => console.log(err));
-
     axios
       .get("https://api.github.com/users/joshaw66/followers")
        .then(res=>{
@@ -64,18 +72,17 @@ class App extends React.Component{
 
   render(){
     return(
+      
       <CardMain className = 'mainContainer'>
-        <MainTitle>Github Usercards</MainTitle>
+        <MainTitle>Github User-Cards</MainTitle>
         <GitCard 
           userImg = {this.state.user.avatar_url}
           name = {this.state.user.name}
           username = {this.state.user.login}
           link = {this.state.user.url}
           followers = {this.state.user.followers}
-          following = {this.state.user.following}
-          bio = {this.state.user.bio}
           />
-          <FollowersTitle>My Followers</FollowersTitle>
+          <FollowersTitle>My Followers:</FollowersTitle>
         {
         this.state.followers.map(user=>{
           return <GitCard 
@@ -84,8 +91,6 @@ class App extends React.Component{
           username = {user.login}
           link = {user.url}
           followers = {user.followers}
-          following = {user.following}
-          bio = {user.bio}
           />
         })
         }
@@ -93,4 +98,5 @@ class App extends React.Component{
     )
   }
 }
+
 export default App;
